@@ -1,0 +1,38 @@
+{
+  "name": "codecept-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "codecept.conf.js",
+  "scripts": {
+    "start:selenium-standalone": "./node_modules/.bin/selenium-standalone install",
+    "test:sanity": "codeceptjs run --grep \"@sanity\" --plugins allure --config=./codecept.conf.js",
+    "test:e2e": "codeceptjs run --plugins allure --config=./codecept.conf.js",
+    "test:multiple": "codeceptjs run-multiple --all --config=./codecept.conf.js",
+    "test:smoke": "codeceptjs run --grep \"@smoke\" --plugins allure --config=./codecept.conf.js",
+    "test:parallelExecution": "codeceptjs run multiple basic --grep \"@browserStack\" --plugins allure --config=./codecept.conf.js",
+    "test:report": "allure serve ./output",
+    "test:report-gen": "allure generate ./output"
+  },
+  "devDependencies": {
+    "@wdio/selenium-standalone-service": "^6.6.5",
+    "allure-commandline": "^2.9.0",
+    "axios": "^0.19.2",
+    "cucumber": "^6.0.5",
+    "import-export": "^1.0.1",
+    "@reportportal/agent-js-codecept": "^0.2.4"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.9.0",
+    "chai": "latest",
+    "codeceptjs": "^3.0.1",
+    "exceljs": "^3.1.0",
+    "faker": "latest",
+    "moment": "latest",
+    "mongoose": "^5.7.3",
+    "randomstring": "latest",
+    "webdriverio": "^6.7.2",
+    "window": "^4.2.6"
+  },
+  "author": "Shubham Gupta",
+  "license": "ISC"
+}
