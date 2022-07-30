@@ -1,4 +1,4 @@
-# dentsu-bdd-js-boilerplate
+# codeceptjs-skeleton
 
 This contains a base framework and example tests using codeceptjs utilising the recommended patterns. 
 
