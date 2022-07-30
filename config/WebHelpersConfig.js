@@ -70,12 +70,13 @@ const REST = {
 
 const Puppeteer = {
     url: HOST_URL,
-    restart: false,
+    restart: config.uniqueBrowser,
+    windowSize:config.browserSize,
     waitForNavigation: "domcontentloaded",
     waitForAction: 200,
-    show: false,
-    keepCookies: true,
-    browser: 'chrome',
+    show: config.headless? false: true ,
+    keepCookies: config.keepCookies,
+    browser: config.browser,
 };
 
 const GraphQL = {

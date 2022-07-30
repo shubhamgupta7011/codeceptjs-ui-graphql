@@ -1,10 +1,10 @@
 const I = actor();
-const genericMethod = require('../../factories/GenericFuctions');
+//const genericMethod = require('../../factories/GenericFuctions');
 
 module.exports = {
 
     async getData() {
-        let token = await genericMethod.getOktaToken();
+        //let token = await genericMethod.getOktaToken();
         return await I.sendQuery(
             `query {
                  getDataSource {
@@ -23,7 +23,7 @@ module.exports = {
     },
 
     async getDataFile_MetaData(id) {
-        let token = await genericMethod.getOktaToken();
+       // let token = await genericMethod.getOktaToken();
         return await I.sendQuery(
             `query{ 
                 getMetaData(id:"${id}"){
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     async getDataFile_Records(id, start, end) {
-        let token = await genericMethod.getOktaToken();
+        //let token = await genericMethod.getOktaToken();
         return await I.sendQuery(
             `query {
                   getRecords(id:"${id}",start:${start},total: ${end})  {

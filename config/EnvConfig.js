@@ -13,18 +13,23 @@ for pipeline :- "(e2e_env=test) && npm run test:e2e"
 
 //All the urls should be encoded by URL_ENcode.js
 
-const config=require('../Codecept.property');
+const config = require('../Codecept.property');
 
 const envConfig = {
 
-    env: process.env.E2E_ENV || config.env,
+    env: config.env,
 
     dev: {
         web: {
             HOST_URL: 'https://www.google.com/',
         },
+        
         server: {
-            serverURL: 'http://mappingui01-dev-dan-mapping-svr.az.mapping.gdpdentsu.net/graphql',
+            serverURL: '',
+        },
+
+        service: {
+            serverURL: '',
         },
     },
 
@@ -32,41 +37,14 @@ const envConfig = {
         web: {
             HOST_URL: 'https://www.google.com/',
         },
+       
         server: {
-            serverURL: 'http://mappingui01-test-dan-mapping-svr.az.mapping.gdpdentsu.net/graphql',
+            serverURL: '',
         },
-    },
 
-    'int-g1ds': {
-        web: {
-            HOST_URL: 'https://www.google.com/',
+        service: {
+            serverURL: '',
         },
-        server: {
-            serverURL: 'https://shared01-int-g1ds-kong-proxy.az.eu-az-int-wal.gdpdentsu.net/mapping/graphql',
-        },
-        marketCode: "",
-        clientCode: "",
-        tenantId: "",
-        subTenantId: "",
-        CMSCollection:"",
-        market: 'General Motors France',
-        client: 'General Motors'
-    },
-
-    'stg-g1ds': {
-        web: {
-            HOST_URL: 'https://www.google.com/',
-        },
-        server: {
-            serverURL: 'https://shared01-stg-g1ds-kong-proxy.az.eu-az-stg-wal.gdpdentsu.net/mapping/graphql',
-        },
-        marketCode: "",
-        clientCode: "",
-        tenantId: "",
-        subTenantId: "",
-        CMSCollection:"",
-        market: 'General Motors United States of America (the)',
-        client: 'General Motors',
     },
 
 };

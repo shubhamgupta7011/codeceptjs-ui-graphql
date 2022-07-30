@@ -1,16 +1,8 @@
-const {include, gherkin} = require('./config/BddConfig');
-const {WebDriver, REST, GraphQL} = require('./config/WebHelpersConfig');
+const { include, gherkin } = require('./config/BddConfig');
+const {WebDriver,Puppeteer, REST, GraphQL} = require('./config/WebHelpersConfig');
+const plugins = require('./config/Plugins');
 const browser = ["chrome", "chrome", "chrome", "chrome"];
 const hooks = require('./config/BootStrapAndTearDownHooks');
-const config = require('./Codecept.property');
-
-const rptoken = process.env.RP_TOKEN;
-const rpendpoint = process.env.RP_ENDPOINT;
-const rplaunchname = process.env.RP_LAUNCH_NAME;
-const env_name = process.env.ENV_NAME;
-const core_env = process.env.CORE_ENV;
-const app_name = process.env.APP_NAME;
-const rp_test_type = process.env.RP_TEST_TYPE;
 
 exports.config = {
     output: './output',
@@ -60,12 +52,7 @@ exports.config = {
     },
 */
 
-    helpers: {
-        WebDriver, REST, GraphQL,
-        customHelper: {require: './factories/MyHelper.js'}
-    },
-
-    /*multiple: {
+ /*multiple: {
         smoke: {
             browsers: [
                 {
@@ -113,79 +100,21 @@ exports.config = {
     },
     */
 
-    bootstrapAll: config.bootstrapAll ? hooks.setBootstrap : null,
-    teardownAll: config.teardownAll ? hooks.setTeardown : null,
-    bootstrap: config.bootstrapAll ? hooks.setBootstrap : null,
-    teardown: config.teardownAll ? hooks.setTeardown : null,
+
+    helpers: {
+        Puppeteer, REST, GraphQL,
+        customHelper: { require: './factories/support/MyHelper.js' }
+    },
+
+    bootstrapAll: hooks.setBootstrap,
+    teardownAll: hooks.setTeardown,
+    bootstrap: hooks.setBootstrap,
+    teardown: hooks.setTeardown,
 
     include,
     gherkin,
 
-    plugins: {
-        screenshotOnFail: {enabled: true},
+    plugins: plugins,
 
-        wdio: !config.bootstrapAll && !config.teardownAll ? {
-            enabled: true, services: ['selenium-standalone'],
-            seleniumArgs: config.browserVersion === 'latest' ? {} : {
-                drivers: {
-                    chrome: {
-                        version: config.browserVersion, // Chromedriver version
-                        arch: process.arch,
-                    },
-                    firefox: {
-                        version: config.browserVersion, // Geckodriver version
-                        arch: process.arch,
-                    },
-                },
-            },
-            seleniumInstallArgs: config.browserVersion === 'latest' ? {} : {
-                baseURL: 'https://selenium-release.storage.googleapis.com',
-                drivers: {
-                    chrome: {
-                        version: config.browserVersion,
-                        arch: process.arch,
-                        baseURL: 'https://chromedriver.storage.googleapis.com',
-                    },
-                    firefox: {
-                        version: config.browserVersion,
-                        arch: process.arch,
-                        baseURL: 'https://github.com/mozilla/geckodriver/releases/download',
-                    },
-                },
-            },
-        } : {},
-
-        allure: {enabled: true},
-
-        reportportal: config.reportPortal ? {
-            enabled: true,
-            require: '@reportportal/agent-js-codecept',
-            token: rptoken,
-            endpoint: rpendpoint,
-            launchName: rplaunchname,
-            launchAttributes: [
-                {
-                    'key': 'env',
-                    'value': env_name,
-                },
-                {
-                    'key': 'app',
-                    'value': app_name,
-                },
-                {
-                    'key': 'test_type',
-                    'value': rp_test_type,
-                },
-                {
-                    'key': 'core_env',
-                    'value': core_env,
-                },
-            ],
-            projectName: 'media_ecosystem',
-            rerun: false,
-            debug: true,
-            hasStats: false,
-        } : null,
-    },
     name: 'Codeceptjs-Skeleton'
 };

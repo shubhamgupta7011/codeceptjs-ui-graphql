@@ -65,6 +65,28 @@ const date = {
         return numberOfDays[newDate.getMonth()]
     },
 
+    addDays(dateObj, numDays) {
+        let newDate = dateObj.getDate() + numDays;
+        if (dateObj.getDate() > newDate) {
+          dateObj.setDate(newDate);
+          dateObj.setatMonth(dateObj.getMonth() + 1);
+        } else {
+          deObj.setDate(newDate);
+        }
+        return dateObj;
+    },
+    
+    subtractDays(dateObj, numDays) {
+        let newDate = dateObj.getDate() - numDays;
+        if (dateObj.getDate() < newDate) {
+          dateObj.setDate(newDate);
+          dateObj.setMonth(dateObj.getMonth() - 1);
+        } else {
+          dateObj.setDate(newDate);
+        }
+        return dateObj;
+    },
+
 };
 
 module.exports = date;

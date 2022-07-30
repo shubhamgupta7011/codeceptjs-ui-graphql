@@ -1,28 +1,37 @@
-const I = actor();
+const page = require('./page')
 
+class login extends page{
+    
+    constructor() {
+        super();
+    }
 
-module.exports = {
-
-    fields: {},
+    selector = {
+        SEARCH_FIELD:'//input[@name="q"]',
+        FIRST_LINK:'//h3[text()="CodeceptJS"]/..',
+        HEADER:'//span[text()="CodeceptJS"]/..',
+    }
 
     navigateToUrl() {
-        I.amOnPage("")
-    },
+        this.browser.gotoUrl();
+    }
 
     enterTextInSearch(str) {
-        I.waitForVisible('//input[@name="q"]', 20);
-        I.fillField('//input[@name="q"]', str);
-        I.pressKey('Enter')
-    },
+        this.browser
+            .type(this.selector.SEARCH_FIELD, str, 20)
+            .press('Enter');
+    }
 
     clickOnfirstLink() {
-        I.waitForVisible('//h3[text()="CodeceptJS"]/..', 20);
-        I.click('//h3[text()="CodeceptJS"]/..');
-    },
+        this.browser
+            .click(this.selector.FIRST_LINK, 20)
+    }
 
     userOncodeceptjsPage() {
-        I.waitForVisible('//span[text()="CodeceptJS"]/..', 20);
-        I.seeElement('//span[text()="CodeceptJS"]/..');
+        this.browser
+            .clockWait(5)
+            .isVisible(this.selector.HEADER, 20);
     }
-};
-
+    
+}
+module.exports = new login()

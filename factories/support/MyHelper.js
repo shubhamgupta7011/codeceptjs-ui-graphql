@@ -252,9 +252,9 @@ class MyHelper extends Helper {
 // }
 
     async _failed() {
-        await this.getBrowserLogs();
-        await this.getDriverLogs();
-        // await this.setFail();        /* To be used while executing via CBT */
+        // await this.getBrowserLogs();
+        // await this.getDriverLogs();
+        // // await this.setFail();        /* To be used while executing via CBT */
     }
 
     /* To be used while executing via CBT */

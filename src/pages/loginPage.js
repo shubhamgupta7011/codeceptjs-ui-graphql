@@ -1,7 +1,7 @@
 const I = actor();
 const envURL = require('../../config/EnvConfig');
 let {market, client, appName, CMSCollection} = envURL[envURL.env];
-const genericMethod = require('../../factories/GenericFuctions');
+//const genericMethod = require('../../factories/GenericFuctions');
 const CmsContext = require('../../factories/CMSContent');
 const url = require('url');
 let envStatus = envURL.env === 'int-g1ds' || envURL.env === 'nft-g1ds' || envURL.env === 'stg-g1ds';
@@ -45,14 +45,14 @@ module.exports = {
         await this.getCMSContentThroughLanguage(collection, CmsContext.language);
     },
 
-    async getCMSContentThroughLanguage(collection, lang) {
-        const cmsContent = await genericMethod.getCMSContentFromGraphQL(collection, lang);
-        CmsContext[collection] = (cmsContent.status === 200
-            && (cmsContent.data.data.getContent.result !== null
-                || cmsContent.data.data.getContent.result !== []))
-            ? cmsContent.data.data.getContent.result
-            : CmsContext[collection];
-    },
+    // async getCMSContentThroughLanguage(collection, lang) {
+    //     //const cmsContent = await genericMethod.getCMSContentFromGraphQL(collection, lang);
+    //     CmsContext[collection] = (cmsContent.status === 200
+    //         && (cmsContent.data.data.getContent.result !== null
+    //             || cmsContent.data.data.getContent.result !== []))
+    //         ? cmsContent.data.data.getContent.result
+    //         : CmsContext[collection];
+    // },
 
 //======================================================================================================================
 //
