@@ -1,6 +1,6 @@
 const envURL = require('./EnvConfig');
-let {HOST_URL} = envURL[envURL.env].web;
-let {serverURL} = envURL[envURL.env].server;
+let { HOST_URL } = envURL[envURL.env].web;
+let { serverURL } = envURL[envURL.env].server;
 const path = require('path');
 const downloadDir = path.join(__dirname, '../output/Download');
 const config = require('../Codecept.property');

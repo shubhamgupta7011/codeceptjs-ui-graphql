@@ -175,9 +175,49 @@ class Browser {
    * Check if element is visible
    * @param {string} selector
    * @param {number} timeout for optional wait
+   * @returns {boolean} answer
+   */
+  isVisible = async(selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
+    return await this.browser.isElementVisible(selector, timeout);
+  }
+
+  /**
+   * Check if element is enable
+   * @param {string} selector
+   * @param {number} timeout for optional wait
+   * @returns {boolean} answer
+   */
+  isEnable = async(selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
+    return await this.browser.isEnable(selector, timeout);
+  }
+
+  /**
+   * Check if element have text or not
+   * @param {string} selector
+   * @param {number} timeout for optional wait
+   * @returns {boolean} answer
+   */
+   isTextPresent = async(selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
+    return await this.browser.isTextPresent(selector, timeout);
+  }
+
+  /**
+   * Check if element is exist
+   * @param {string} selector
+   * @param {number} timeout for optional wait
+   * @returns {boolean} answer
+   */
+  isExist = async(selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
+    return await this.browser.isPresent(selector, timeout);
+  }
+
+    /**
+   * Check if element is visible
+   * @param {string} selector
+   * @param {number} timeout for optional wait
    * @returns {this} for command chaining
    */
-  isVisible = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
+  shouldVisible = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
     this.browser.waitForVisible(selector, timeout);
     this.browser.seeElement(selector);
     return this;
@@ -189,7 +229,7 @@ class Browser {
    * @param {number} timeout for optional wait
    * @returns {this} for command chaining
    */
-  isNotVisible = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
+  shouldNotVisible = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) => {
     this.browser.waitForInvisible(selector, timeout);
     this.browser.dontSeeElement(selector);
     return this;
@@ -201,7 +241,7 @@ class Browser {
    * @param {number} timeout for optional wait
    * @returns {this} for command chaining
    */
-  isExists = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
+  shouldExists = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
     this.browser.waitForElement(selector, timeout);
     this.browser.seeElementInDOM(selector);
     return this;
@@ -213,7 +253,7 @@ class Browser {
    * @param {number} timeout for optional wait
    * @returns {this} for command chaining
    */
-  isNotExists = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
+  shouldNotExists = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
     this.browser.waitForInvisible(selector, timeout);
     this.browser.dontSeeElementInDOM(selector);
     return this;
@@ -225,7 +265,7 @@ class Browser {
    * @param {number} timeout for optional wait
    * @returns {this} for command chaining
    */
-  isChecked = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
+  shouldChecked = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
     this.browser.waitForVisible(selector, timeout);
     this.browser.seeCheckboxIsChecked(selector);
     return this;
@@ -237,7 +277,7 @@ class Browser {
    * @param {number} timeout for optional wait
    * @returns {this} for command chaining
    */
-  isNotChecked = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
+  shouldNotChecked = (selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT)  => {
     this.browser.waitForVisible(selector, timeout);
     this.browser.dontSeeCheckboxIsChecked(selector);
     return this;
@@ -300,7 +340,7 @@ class Browser {
    */
   async getTextFromAttribute (selector, attribute, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) {
     this.browser.waitForVisible(selector, timeout);
-    return await this.browser.grabAttributeFrom(selector, attribute);
+    return this.browser.grabAttributeFrom(selector, attribute);
   }
 
   /**
@@ -311,7 +351,7 @@ class Browser {
    */
   async getTextFromElement(selector, timeout = this.browserConfig.ELEMENT_TIMEOUT_SHORT) {
     this.browser.waitForVisible(selector, timeout);
-    return await this.browser.grabTextFrom(selector);
+    return this.browser.grabTextFrom(selector);
   }
 
   /**
@@ -319,7 +359,7 @@ class Browser {
    * @returns {this} for command chaining
    */
   async getToken() {
-    let token = await this.browser.executeScript(
+    let token = this.browser.executeScript(
       (storage) => localStorage.getItem(storage), 'okta-token-storage');
     token = JSON.stringify(token);
     token = JSON.parse(JSON.parse(token));
@@ -406,7 +446,6 @@ class Browser {
     );
   } 
 
-
   /**
    * To get the data from graphql server using  query string
    * @param {string} queryString
@@ -415,8 +454,8 @@ class Browser {
    * @returns {object} response
    */
   async query(queryString, variables = {}, options = {}, headers = this.apiConfig.HEADERS) {
-    return await this.browser.sendQuery(
-        queryString, variables, options, headers
+    return this.browser.sendQuery(
+      queryString, variables, options, headers
     );
   }
 
@@ -428,8 +467,8 @@ class Browser {
    * @returns {object} response
    */
   async mutation(mutationString, variables = {}, options = {}, headers = this.apiConfig.HEADERS) {
-    return await this.browser.sendMutation(
-        mutationString, variables, options, headers
+    return this.browser.sendMutation(
+      mutationString, variables, options, headers
     );
   }
 

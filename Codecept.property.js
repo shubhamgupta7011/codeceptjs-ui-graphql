@@ -28,7 +28,7 @@ module.exports = {
 
   // report portal
   reportportal: {
-    enabled: true,
+    enabled: false,
     require: '@reportportal/agent-js-codecept',
     token: rpToken,
     projectName: rpProjectName,
